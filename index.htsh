@@ -74,6 +74,27 @@ if [ "$compress" = "c" ]; then
 	echo "Compress ok. <br>"
 	echo "<a href="pdf/$output" download>Download compressed pdf.</a>"
 fi
+?>
 
+<h2>Split PDF</h2>
+<form>
+  Range of pages (n-m):<br>
+  <input type="text" name="range"><br>
+  <button id="d" type="submit" name="split" class="d" value="d">Split pdf</button>     
+</form>
+<?bash
+if [ "$split" = "d" ]; then
+	echo "Split..."
+	cd /tmp/pdf/
+	output=$(tail -1 list | grep -o -P "(?<=[0-9]\. ).*pdf")_splitted.pdf
+	output=$(echo $output | sed --expression='s/[^a-zA-Z0-9]/_/g')
+	input=$(tail -1 list | grep -o -P ^[0-9]\.)
+	echo range $range
+	first=$(echo $range | sed --expression='s/\([0-9]\)-.*/\1/')
+	last=$(echo $range | sed --expression='s/.*-\([0-9]\)/\1/')
+	gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER -dFirstPage=$first -dLastPage=$last -sOutputFile="/tmp/pdf/$output" "/tmp/pdf/$input" > /dev/null 2>&1
+	echo "Split ok. <br>"
+	echo "<a href="pdf/$output" download>Download splitted pdf.</a>"
+fi
 ?>
 </html>
