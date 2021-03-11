@@ -1,3 +1,5 @@
 # Web PDF Toolbox
 
-Very simple web toolbox to combine and compress PDF using [Ghostscript](https://www.ghostscript.com/).
+Very simple web toolbox to combine, compress, and split PDF using [Ghostscript](https://www.ghostscript.com/).
+
+![screenshot.png](img/screenshot.png "Screenshot")
