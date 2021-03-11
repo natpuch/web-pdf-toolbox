@@ -2,9 +2,7 @@ FROM ubuntu:20.04
 
 WORKDIR "/root"
 
-RUN pwd
-
-COPY install_apache.sh /root/install_apache.sh
+COPY build/install_apache.sh /root/install_apache.sh
 
 RUN chmod +x install_apache.sh
 
@@ -12,7 +10,7 @@ RUN ./install_apache.sh
 
 RUN DEBIAN_FRONTEND=noninteractive; apt-get install -y wget
 
-COPY install_BoS.sh /root/install_BoS.sh
+COPY build/install_BoS.sh /root/install_BoS.sh
 
 RUN chmod +x install_BoS.sh
 
@@ -32,7 +30,7 @@ RUN ./build.sh
 
 WORKDIR /root
 
-COPY start.sh /root/start.sh
+COPY build/start.sh /root/start.sh
 
 RUN chmod +x start.sh
 
