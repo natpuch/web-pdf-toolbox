@@ -1,0 +1,10 @@
+version: "3.4"
+services:
+  web-pdf-toolbox:
+    container_name: web-pdf-toolbox
+    image: zpex/web-pdf-toolbox
+    ports:
+      - 25568:80
+    volumes:
+        - ./index.htsh:/var/www/html/index.htsh
+        - ./pdf/:/tmp/pdf/
