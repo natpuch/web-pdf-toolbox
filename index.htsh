@@ -1,100 +1,142 @@
 <html>
 <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>PDF Toolbox</title>
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<h1>PDF Toolbox</h1>
+<body>
 
-<h2>Workspace</h2>
-<form id="choice" name='form' method="POST" action="/">
-    <button id="a" type="submit" name="vote" class="a" value="a">Delete all files</button>     
-</form>
+	<main>
+		<nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">PDF Toolbox</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-<?bash
-if [ "$vote" = "a" ]; then
-	echo "Delete..."
-	rm /tmp/pdf/*
-	echo "Deletion ok."
-fi
-?>
+				<div class="collapse navbar-collapse" id="navbarsExample01">
+					<ul class="navbar-nav me-auto mb-2">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="https://github.com/natpuch/web-pdf-toolbox">GitHub link</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</main>
 
-<form method="post" enctype="multipart/form-data">
-    <label for="file">Filename:</label>
-    <input type="file" name="file" id="file"><br>
-    <input type="submit" name="submit" value="Submit">
-</form>
+	<div class="container">
 
-<?bash
-read && read disposition && read ctype && read
-size=$((CONTENT_LENGTH-a))
+		<div class="d-flex p-3 my-3">
+			<nav>
+				<div class="nav nav-tabs" id="nav-tab" role="tablist">
+					<button class="nav-link active" id="nav-workspace-tab" data-bs-toggle="tab" data-bs-target="#nav-workspace" type="button" role="tab" aria-controls="nav-workspace" aria-selected="true">Workspace</button>
+					<button class="nav-link" id="nav-combine-tab" data-bs-toggle="tab" data-bs-target="#nav-combine" type="button" role="tab" aria-controls="nav-combine" aria-selected="false">Combine PDF</button>
+					<button class="nav-link" id="nav-compress-tab" data-bs-toggle="tab" data-bs-target="#nav-compress" type="button" role="tab" aria-controls="nav-compress" aria-selected="false">Compress PDF</button>
+					<button class="nav-link" id="nav-split-tab" data-bs-toggle="tab" data-bs-target="#nav-split" type="button" role="tab" aria-controls="nav-split" aria-selected="false">Split PDF</button>
+				</div>
+			</nav>
+		</div>
 
-eval `echo "${disposition}"|sed 's/\r$//'|cut -d';' -f3`
+		<div class="tab-content" id="nav-tabContent">
+			<div class="tab-pane fade show active" id="nav-workspace" role="tabpanel" aria-labelledby="nav-workspace-tab">
+				<form id="choice" name='form' method="POST" action="/">
+					<button id="a" type="submit" name="vote" class="a btn btn-dark" value="a">Delete all files</button>     
+				</form>
 
-dd ibs=1 obs=512 count=$size of="/tmp/pdf/$filename"
+				<?bash
+				if [ "$vote" = "a" ]; then
+				echo "Delete..."
+				rm /tmp/pdf/*
+				echo "Deletion ok."
+				fi
+				?>
 
-if [ -f "/tmp/pdf/$filename" ]
-then
-	filenum=$(($(ls -1 /tmp/pdf/*. | wc -l) + 1)).
-	mv "/tmp/pdf/$filename" "/tmp/pdf/$filenum"
-	echo $filenum $filename "<br>" >> /tmp/pdf/list
-fi
-?>
+				<form method="post" enctype="multipart/form-data">
+					<label for="file" class="form-label">Filename:</label>
+					<input type="file" name="file" id="file" class="form-control"><br>
+					<input type="submit" name="submit" value="Submit" class="btn btn-dark">
+				</form>
 
-<?bash
-echo >> list
-cat /tmp/pdf/list
-?>
+				<?bash
+				read && read disposition && read ctype && read
+				size=$((CONTENT_LENGTH-a))
 
-<h2>Combine PDF</h2>
-<form id="choice" name='form' method="POST" action="/">
-    <button id="b" type="submit" name="combine" class="b" value="b">Combine all files</button>     
-</form>
-<?bash
+				eval `echo "${disposition}"|sed 's/\r$//'|cut -d';' -f3`
 
-if [ "$combine" = "b" ]; then
-	echo "Combine..."
-	cd /tmp/pdf/
-	gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=combine.pdf -dBATCH $(ls -1 *.) > /dev/null 2>&1
-	echo "Combine ok. <br>"
-	echo "<a href="pdf/combine.pdf" download>Download combined pdf.</a>"
-fi
-?>
+				dd ibs=1 obs=512 count=$size of="/tmp/pdf/$filename"
 
-<h2>Compress PDF</h2>
-<form id="choice" name='form' method="POST" action="/">
-    <button id="c" type="submit" name="compress" class="c" value="c">Compress pdf</button>     
-</form>
-<?bash
-if [ "$compress" = "c" ]; then
-	echo "Compress..."
-	cd /tmp/pdf/
-	output=$(tail -1 list | grep -o -P "(?<=[0-9]\. ).*pdf")_compressed.pdf
-	output=$(echo $output | sed --expression='s/[^a-zA-Z0-9]/_/g')
-	input=$(tail -1 list | grep -o -P ^[0-9]\.)
-	gs -q -r72 -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dColorConversionStrategy=/LeaveColorUnchanged -dPDFSETTINGS=/screen -dEmbedAllFonts=true -dSubsetFonts=true -dAutoRotatePages=/None -dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Subsample -dGrayImageResolution=72 -dColorImageResolution=72 -dMonoImageResolution=72 -sOutputFile="/tmp/pdf/$output" "/tmp/pdf/$input" > /dev/null 2>&1
-	echo "Compress ok. <br>"
-	echo "<a href="pdf/$output" download>Download compressed pdf.</a>"
-fi
-?>
+				if [ -f "/tmp/pdf/$filename" ]
+				then
+				filenum=$(($(ls -1 /tmp/pdf/*. | wc -l) + 1)).
+				mv "/tmp/pdf/$filename" "/tmp/pdf/$filenum"
+				echo $filenum $filename "<br>" >> /tmp/pdf/list
+				fi
+				?>
 
-<h2>Split PDF</h2>
-<form>
-  Range of pages (n-m):<br>
-  <input type="text" name="range"><br>
-  <button id="d" type="submit" name="split" class="d" value="d">Split pdf</button>     
-</form>
-<?bash
-if [ "$split" = "d" ]; then
-	echo "Split..."
-	cd /tmp/pdf/
-	output=$(tail -1 list | grep -o -P "(?<=[0-9]\. ).*pdf")_splitted.pdf
-	output=$(echo $output | sed --expression='s/[^a-zA-Z0-9]/_/g')
-	input=$(tail -1 list | grep -o -P ^[0-9]\.)
-	echo range $range
-	first=$(echo $range | sed --expression='s/\([0-9]\)-.*/\1/')
-	last=$(echo $range | sed --expression='s/.*-\([0-9]\)/\1/')
-	gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER -dFirstPage=$first -dLastPage=$last -sOutputFile="/tmp/pdf/$output" "/tmp/pdf/$input" > /dev/null 2>&1
-	echo "Split ok. <br>"
-	echo "<a href="pdf/$output" download>Download splitted pdf.</a>"
-fi
-?>
+				<?bash
+				echo >> list
+				cat /tmp/pdf/list
+				?>
+			</div>
+			<div class="tab-pane fade" id="nav-combine" role="tabpanel" aria-labelledby="nav-combine-tab">
+				<form id="choice" name='form' method="POST" action="/">
+					<button id="b" type="submit" name="combine" class="b btn btn-dark" value="b">Combine all files</button>     
+				</form>
+				<?bash
+
+				if [ "$combine" = "b" ]; then
+				echo "Combine..."
+				cd /tmp/pdf/
+				gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=combine.pdf -dBATCH $(ls -1 *.) > /dev/null 2>&1
+				echo "Combine ok. <br>"
+				echo "<a href="pdf/combine.pdf" class="btn btn-success" download>Download combined pdf.</a>"
+				fi
+				?>
+			</div>
+			<div class="tab-pane fade" id="nav-compress" role="tabpanel" aria-labelledby="nav-compress-tab">
+				<form id="choice" name='form' method="POST" action="/">
+					<button id="c" type="submit" name="compress" class="c btn btn-dark" value="c">Compress pdf</button>     
+				</form>
+				<?bash
+				if [ "$compress" = "c" ]; then
+				echo "Compress..."
+				cd /tmp/pdf/
+				output=$(tail -1 list | grep -o -P "(?<=[0-9]\. ).*pdf")_compressed.pdf
+				output=$(echo $output | sed --expression='s/[^a-zA-Z0-9]/_/g')
+				input=$(tail -1 list | grep -o -P ^[0-9]\.)
+				gs -q -r72 -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dColorConversionStrategy=/LeaveColorUnchanged -dPDFSETTINGS=/screen -dEmbedAllFonts=true -dSubsetFonts=true -dAutoRotatePages=/None -dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Subsample -dGrayImageResolution=72 -dColorImageResolution=72 -dMonoImageResolution=72 -sOutputFile="/tmp/pdf/$output" "/tmp/pdf/$input" > /dev/null 2>&1
+				echo "Compress ok. <br>"
+				echo "<a href="pdf/$output" class="btn btn-success" download>Download compressed pdf.</a>"
+				fi
+				?>
+			</div>
+			<div class="tab-pane fade" id="nav-split" role="tabpanel" aria-labelledby="nav-split-tab">
+				<form>
+					<label for="file" class="form-label">Range of pages (n-m):</label>
+					<input type="text" name="range" class="form-control"><br>
+					<button id="d" type="submit" name="split" class="d btn btn-dark" value="d">Split pdf</button>     
+				</form>
+				<?bash
+				if [ "$split" = "d" ]; then
+				echo "Split..."
+				cd /tmp/pdf/
+				output=$(tail -1 list | grep -o -P "(?<=[0-9]\. ).*pdf")_splitted.pdf
+				output=$(echo $output | sed --expression='s/[^a-zA-Z0-9]/_/g')
+				input=$(tail -1 list | grep -o -P ^[0-9]\.)
+				echo range $range
+				first=$(echo $range | sed --expression='s/\([0-9]\)-.*/\1/')
+				last=$(echo $range | sed --expression='s/.*-\([0-9]\)/\1/')
+				gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER -dFirstPage=$first -dLastPage=$last -sOutputFile="/tmp/pdf/$output" "/tmp/pdf/$input" > /dev/null 2>&1
+				echo "Split ok. <br>"
+				echo "<a href="pdf/$output" class="btn btn-success" download>Download splitted pdf.</a>"
+				fi
+				?>
+			</div>
+		</div>
+	</div>
+</main>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
