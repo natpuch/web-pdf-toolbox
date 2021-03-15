@@ -6,5 +6,6 @@ services:
     ports:
       - 25568:80
     volumes:
+        - ./assets:/var/www/html/assets
         - ./index.htsh:/var/www/html/index.htsh
         - ./pdf/:/tmp/pdf/
