@@ -6,5 +6,4 @@ services:
     ports:
       - 25568:80
     volumes:
-        - ./html/:/var/www/html/
         - ./pdf/:/tmp/pdf/
