@@ -2,7 +2,7 @@
 
 Very simple web toolbox to combine, compress, and split PDF using [Ghostscript](https://www.ghostscript.com/).
 
-![Screenshot of Web PDF Toolbox](img/screenshot.png)
+![Screenshot of Web PDF Toolbox](https://raw.githubusercontent.com/natpuch/web-pdf-toolbox/main/img/screenshot.png)
 
 ## Installation
 
