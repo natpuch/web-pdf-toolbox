@@ -1,0 +1,41 @@
+<div id="workspace" class="tab-pane fade show active">
+	<form id="choice" name='form' method="POST" action="/">
+		<button id="a" type="submit" name="vote" class="a btn btn-dark" value="a">Delete all files</button>     
+	</form>
+
+<?bash
+if [ "$vote" = "a" ]; then
+	echo "Delete..."
+	rm /tmp/pdf/*
+	echo "Deletion ok."
+fi
+?>
+
+	<form method="post" enctype="multipart/form-data">
+		<label for="file" class="form-label">Filename:</label>
+		<input type="file" name="file" id="file" class="form-control"><br>
+		<input type="submit" name="submit" value="Submit" class="btn btn-dark">
+	</form>
+
+<?bash
+read && read disposition && read ctype && read
+size=$((CONTENT_LENGTH-a))
+
+eval `echo "${disposition}"|sed 's/\r$//'|cut -d';' -f3`
+
+dd ibs=1 obs=512 count=$size of="/tmp/pdf/$filename"
+
+if [ -f "/tmp/pdf/$filename" ]
+then
+	filenum=$(($(ls -1 /tmp/pdf/*. | wc -l) + 1)).
+	mv "/tmp/pdf/$filename" "/tmp/pdf/$filenum"
+	echo $filenum $filename "<br>" >> /tmp/pdf/list
+fi
+?>
+
+<?bash
+echo >> list
+cat /tmp/pdf/list
+?>
+
+</div>
