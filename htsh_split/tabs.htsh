@@ -1,0 +1,17 @@
+<div class="d-flex p-3 my-3">
+
+  	<ul class="nav nav-tabs" id="myTab"  role="tablist">
+        <li class="nav-item">
+            <a href="#workspace" class="nav-link active" data-toggle="tab" style="color: #495057;">Workspace</a>
+        </li>
+        <li class="nav-item">
+            <a href="#combine" class="nav-link" data-toggle="tab" style="color: #495057;">Combine PDF</a>
+        </li>
+        <li class="nav-item">
+            <a href="#compress" class="nav-link" data-toggle="tab" style="color: #495057;">Compress PDF</a>
+        </li>
+        <li class="nav-item">
+            <a href="#split" class="nav-link" data-toggle="tab" style="color: #495057;">Split PDF</a>
+         </li>
+    </ul>
+</div>

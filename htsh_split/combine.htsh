@@ -1,0 +1,16 @@
+<div id="combine" class="tab-pane fade">
+	<form id="choice" name='form' method="POST" action="/">
+		<button id="b" type="submit" name="combine" class="b btn btn-dark" value="b">Combine all files</button>     
+	</form>
+<?bash
+
+if [ "$combine" = "b" ]; then
+echo "Combine..."
+	cd /tmp/pdf/
+	gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=combine.pdf -dBATCH $(ls -1 *.) > /dev/null 2>&1
+	echo "Combine ok. <br>"
+	echo "<a href="pdf/combine.pdf" class="btn btn-success" download>Download combined pdf.</a>"
+fi
+?>
+
+</div>
