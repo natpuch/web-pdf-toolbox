@@ -8,7 +8,7 @@ RUN chmod +x install_apache.sh
 
 RUN ./install_apache.sh
 
-RUN DEBIAN_FRONTEND=noninteractive; apt-get install -y wget ghostscript
+RUN DEBIAN_FRONTEND=noninteractive; apt-get install -y wget ghostscript imagemagick
 
 COPY install_scripts/install_BoS.sh /root/install_BoS.sh
 

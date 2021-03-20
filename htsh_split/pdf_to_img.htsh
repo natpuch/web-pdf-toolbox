@@ -1,0 +1,23 @@
+<div id="pdf_to_img" class="tab-pane fade">
+	<form>
+		<label for="file" class="form-label">Range of pages (n-m):</label>
+		<input type="text" name="range" class="form-control"><br>
+		<button id="pdf_to_img" type="submit" name="pdf_to_img" class="d btn btn-dark" value="d">Convert to IMG</button>     
+	</form>
+<?bash
+if [ "$pdf_to_img" = "d" ]; then
+	echo "Convert..."
+	cd /tmp/pdf/
+	output=converted.pdf
+	input=$(tail -1 list | grep -o -P ^[0-9]\.)
+	
+	first=$(echo $range | sed --expression='s/\([0-9]\)-.*/\1/')
+	last=$(echo $range | sed --expression='s/.*-\([0-9]\)/\1/')
+	
+	# TODO
+	echo "Convert ok. <br>"
+	echo "<a href="pdf/$output" class="btn btn-success" download>Download converted pdf.</a>"
+fi
+?>
+        
+</div>
