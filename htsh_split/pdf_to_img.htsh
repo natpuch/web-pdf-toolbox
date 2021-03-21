@@ -1,6 +1,6 @@
 <div id="pdf_to_img" class="tab-pane fade">
 	<form>
-		<label for="file" class="form-label">Range of pages (n-m):</label>
+		<label for="file" class="form-label">Range of pages (n-m starting from 0, empty for all pages):</label>
 		<input type="text" name="range" class="form-control"><br>
 		<button id="pdf_to_img" type="submit" name="pdf_to_img" class="d btn btn-dark" value="d">Convert to IMG</button>     
 	</form>
@@ -8,15 +8,18 @@
 if [ "$pdf_to_img" = "d" ]; then
 	echo "Convert..."
 	cd /tmp/pdf/
-	output=converted.pdf
+	output=$(tail -1 list | grep -o -P "(?<=[0-9]\. ).*pdf")
+	output=$(echo $output | sed --expression='s/[^a-zA-Z0-9]/_/g')
 	input=$(tail -1 list | grep -o -P ^[0-9]\.)
-	
-	first=$(echo $range | sed --expression='s/\([0-9]\)-.*/\1/')
-	last=$(echo $range | sed --expression='s/.*-\([0-9]\)/\1/')
-	
-	# TODO
+	if [ -z "$range" ]
+	then
+		convert -density 600 -colorspace RGB $input $output.jpg
+	else
+		convert -density 600 -colorspace RGB $input[$range] $output.jpg
+	fi
+	tar zcvf $output.tar.gz $output*
 	echo "Convert ok. <br>"
-	echo "<a href="pdf/$output" class="btn btn-success" download>Download converted pdf.</a>"
+	echo "<a href="pdf/$output.tar.gz" class="btn btn-success" download>Download converted img.</a>"
 fi
 ?>
         
