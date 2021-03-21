@@ -41,6 +41,8 @@ $(document).ready(function(){
 
         {{ img_to_pdf.htsh }}
         {{ pdf_to_img.htsh }}
+
+        {{ contrast.htsh }}
         
     </div>
 </div>

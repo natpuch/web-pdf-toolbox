@@ -1,0 +1,24 @@
+<div id="contrast" class="tab-pane fade">
+	<form>
+		<label for="file" class="form-label">Contrast (between 0 and 100):</label>
+		<input type="text" name="range" class="form-control"><br>
+		<button id="contrast" type="submit" name="contrast" class="d btn btn-dark" value="d">Change contrast</button>     
+	</form>
+<?bash
+if [ "$contrast" = "d" ]; then
+	echo "Processing..."
+	cd /tmp/pdf/
+	output=$(tail -1 list | grep -o -P "(?<=[0-9]\. ).*pdf")
+    output=$(echo $output | sed --expression='s/[^a-zA-Z0-9]/_/g')_contrast.pdf
+	input=$(tail -1 list | grep -o -P ^[0-9]\.)
+	convert -density 600 $input  $output.jpg
+	mogrify -normalize -threshold $range% -format jpg $output*.jpg
+	convert -strip $(ls -1 $output*.jpg) $output
+	rm $output*.jpg
+	echo "Processing ok. <br>"
+	echo "<a href="pdf/$output" class="btn btn-success" download>Download processed pdf.</a>"
+
+fi
+?>
+        
+</div>
