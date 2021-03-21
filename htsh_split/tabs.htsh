@@ -13,5 +13,12 @@
         <li class="nav-item">
             <a href="#split" class="nav-link" data-toggle="tab" style="color: #495057;">Split PDF</a>
          </li>
+         <li class="nav-item">
+            <a href="#img_to_pdf" class="nav-link" data-toggle="tab" style="color: #495057;">IMG to PDF</a>
+         </li>
+         <li class="nav-item">
+            <a href="#pdf_to_img" class="nav-link" data-toggle="tab" style="color: #495057;">PDF to IMG</a>
+         </li>         
+
     </ul>
 </div>

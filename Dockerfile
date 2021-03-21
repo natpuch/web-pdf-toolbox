@@ -8,7 +8,9 @@ RUN chmod +x install_apache.sh
 
 RUN ./install_apache.sh
 
-RUN DEBIAN_FRONTEND=noninteractive; apt-get install -y wget ghostscript
+RUN DEBIAN_FRONTEND=noninteractive; apt-get install -y wget ghostscript imagemagick
+
+RUN rm /etc/ImageMagick*/policy.xml
 
 COPY install_scripts/install_BoS.sh /root/install_BoS.sh
 
@@ -19,10 +21,6 @@ RUN ./install_BoS.sh
 RUN DEBIAN_FRONTEND=noninteractive; apt-get clean; apt-get autoremove
 
 RUN mkdir /tmp/pdf; chown -R www-data /tmp/pdf
-
-WORKDIR "/var/www/html"
-
-RUN ln -s /tmp/pdf pdf
 
 RUN echo "service apache2 restart" >> /root/.bashrc
 
@@ -41,6 +39,12 @@ COPY html /var/www/html
 RUN cp html/index.htsh /var/www/html/index.htsh
 
 RUN rm -rf generate_htsh.sh htsh_split html install*
+
+WORKDIR "/var/www/html"
+
+RUN ln -s /tmp/pdf pdf
+
+WORKDIR "/root"
 
 RUN chmod +x start.sh
 
