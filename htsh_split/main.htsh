@@ -38,6 +38,10 @@ $(document).ready(function(){
         {{ compress.htsh }}
 
         {{ split.htsh }}
+
+        {{ img_to_pdf.htsh }}
+        {{ pdf_to_img.htsh }}
+        
     </div>
 </div>
 </body>
