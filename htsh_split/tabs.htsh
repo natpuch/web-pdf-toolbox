@@ -18,6 +18,11 @@
          </li>
          <li class="nav-item">
             <a href="#pdf_to_img" class="nav-link" data-toggle="tab" style="color: #495057;">PDF to IMG</a>
+         </li> 
+         </li>
+
+         <li class="nav-item">
+            <a href="#contrast" class="nav-link" data-toggle="tab" style="color: #495057;">Change contrast</a>
          </li>         
 
     </ul>
