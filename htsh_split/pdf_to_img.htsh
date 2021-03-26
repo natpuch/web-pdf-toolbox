@@ -7,7 +7,7 @@
 <?bash
 if [ "$pdf_to_img" = "d" ]; then
 	echo "Convert..."
-	cd /tmp/pdf/
+	cd $path/
 	output=$(tail -1 list | grep -o -P "(?<=[0-9]\. ).*pdf")
 	output=$(echo $output | sed --expression='s/[^a-zA-Z0-9]/_/g')
 	input=$(tail -1 list | grep -o -P ^[0-9]\.)
@@ -19,7 +19,7 @@ if [ "$pdf_to_img" = "d" ]; then
 	fi
 	tar zcvf $output.tar.gz $output*
 	echo "Convert ok. <br>"
-	echo "<a href="pdf/$output.tar.gz" class="btn btn-success" download>Download converted img.</a>"
+	echo "<a href="$subpath/$output.tar.gz" class="btn btn-success" download>Download converted img.</a>"
 fi
 ?>
         

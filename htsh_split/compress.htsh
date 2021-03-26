@@ -5,13 +5,13 @@
 <?bash
 if [ "$compress" = "c" ]; then
 	echo "Compress..."
-	cd /tmp/pdf/
+	cd $path/
 	output=$(tail -1 list | grep -o -P "(?<=[0-9]\. ).*pdf")_compressed
 	output=$(echo $output | sed --expression='s/[^a-zA-Z0-9]/_/g').pdf
 	input=$(tail -1 list | grep -o -P ^[0-9]\.)
-	gs -q -r72 -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dColorConversionStrategy=/LeaveColorUnchanged -dPDFSETTINGS=/screen -dEmbedAllFonts=true -dSubsetFonts=true -dAutoRotatePages=/None -dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Subsample -dGrayImageResolution=72 -dColorImageResolution=72 -dMonoImageResolution=72 -sOutputFile="/tmp/pdf/$output" "/tmp/pdf/$input" > /dev/null 2>&1
+	gs -q -r72 -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -dCompatibilityLevel=1.5 -dColorConversionStrategy=/LeaveColorUnchanged -dPDFSETTINGS=/screen -dEmbedAllFonts=true -dSubsetFonts=true -dAutoRotatePages=/None -dColorImageDownsampleType=/Bicubic -dGrayImageDownsampleType=/Bicubic -dMonoImageDownsampleType=/Subsample -dGrayImageResolution=72 -dColorImageResolution=72 -dMonoImageResolution=72 -sOutputFile="$output" "$input" > /dev/null 2>&1
 	echo "Compress ok. <br>"
-	echo "<a href="pdf/$output" class="btn btn-success" download>Download compressed pdf.</a>"
+	echo "<a href="$subpath/$output" class="btn btn-success" download>Download compressed pdf.</a>"
 fi
 ?>
 
