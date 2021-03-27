@@ -16,8 +16,15 @@ $(document).ready(function(){
 	if(activeTab){
 		$('#myTab a[href="' + activeTab + '"]').tab('show');
 	}
+
+     if (localStorage.getItem('sessionId') == undefined) {
+         localStorage = localStorage.setItem('sessionId', Math.random().toString().slice(2));
+     }
+     document.cookie = "sessionid=" + localStorage.getItem('sessionId') + "; Secure";
+     $('#cookie').load(document.URL +  ' #cookie');
 });
 </script>
+
 <style>
 	.bs-example{
 		margin: 20px;
@@ -27,9 +34,17 @@ $(document).ready(function(){
 <body>
 	{{ navbar.htsh }}
 
+<div id="cookie">
+<?bash
+    id=$(echo $HTTP_COOKIE |  sed -e 's/sessionid=\([0-9]*\)/\1/g');
+    path=/tmp/pdf/$id
+    subpath=pdf/$id
+    mkdir -p $path
+?>
+</div>
 <div class="container">
     {{ tabs.htsh }}
-	
+
     <div class="tab-content">
         {{ workspace.htsh }}
         

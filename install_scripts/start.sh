@@ -7,4 +7,4 @@ ln -s /tmp/pdf pdf
 chmod +x build.sh
 ./build.sh
 service apache2 start
-tail -F aa
+cron -f
