@@ -37,7 +37,6 @@ $(document).ready(function(){
 <div id="cookie">
 <?bash
     id=$(echo $HTTP_COOKIE |  sed -e 's/sessionid=\([0-9]*\)/\1/g');
-    echo id $id
     path=/tmp/pdf/$id
     subpath=pdf/$id
     mkdir -p $path
