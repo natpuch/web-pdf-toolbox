@@ -1,6 +1,6 @@
 # Web PDF Toolbox
 
-Very simple web toolbox to combine, compress, and split PDF using [Ghostscript](https://www.ghostscript.com/).
+Very simple web toolbox to combine, compress, split PDF, and convert between images and PDF, and change contrast of PDF using [Ghostscript](https://www.ghostscript.com/) and [ImageMagick](https://imagemagick.org/index.php).
 
 ![Screenshot of Web PDF Toolbox](https://raw.githubusercontent.com/natpuch/web-pdf-toolbox/main/img/screenshot.png)
 
