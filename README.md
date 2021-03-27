@@ -14,8 +14,9 @@ Deploying _Web PDF Toolbox_ through Docker CLI is only recommended for testing (
 
 ```bash
 docker run \
-	-p 25568:80
-	-v './pdf/':/tmp/pdf/
+	-p 25568:80 \
+	--env TZ=Europe/Paris \
+	-v './pdf/':/tmp/pdf/ \
 	zpex/web-pdf-toolbox
 ```
 
@@ -30,6 +31,8 @@ services:
   web-pdf-toolbox:
     container_name: web-pdf-toolbox
     image: zpex/web-pdf-toolbox
+    environment:
+      - TZ=Europe/Paris
     ports:
       - 25568:80
     volumes:
