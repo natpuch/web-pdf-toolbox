@@ -1,0 +1,5 @@
+# hey
+50 23 * * * echo Delete... > /proc/1/fd/1 2>/proc/1/fd/2; cd /tmp/pdf/; find . -type d -mmin +60 > /proc/1/fd/1 2>/proc/1/fd/2
+51 23 * * * cd /tmp/pdf/; find . -type d -mmin +60 -exec rm -rf {} + > /proc/1/fd/1 2>/proc/1/fd/2
+55 23 * * * echo Remain... > /proc/1/fd/1 2>/proc/1/fd/2; cd /tmp/pdf/; find . -type d > /proc/1/fd/1 2>/proc/1/fd/2
+# An empty line is required at the end of this file for a valid cron file.
