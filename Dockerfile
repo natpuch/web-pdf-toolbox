@@ -50,8 +50,6 @@ RUN rm -rf generate_htsh.sh htsh_split html install*
 
 WORKDIR "/var/www/html"
 
-RUN ln -s /tmp/pdf pdf
-
 WORKDIR "/root"
 
 RUN chmod +x start.sh
