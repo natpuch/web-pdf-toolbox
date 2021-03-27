@@ -6,11 +6,10 @@
 <?bash
 if [ "$vote" = "a" ]; then
 	echo "Delete..."
-	rm /tmp/pdf/*
+	rm $path/*
 	echo "Deletion ok."
 fi
 ?>
-
 	<form method="post" enctype="multipart/form-data">
 		<label for="file" class="form-label">Filename:</label>
 		<input type="file" name="file" id="file" class="form-control"><br>
@@ -23,19 +22,19 @@ size=$((CONTENT_LENGTH-a))
 
 eval `echo "${disposition}"|sed 's/\r$//'|cut -d';' -f3`
 
-dd ibs=1 obs=512 count=$size of="/tmp/pdf/$filename"
+dd ibs=1 obs=512 count=$size of="$path/$filename"
 
-if [ -f "/tmp/pdf/$filename" ]
+if [ -f "$path/$filename" ]
 then
-	filenum=$(($(ls -1 /tmp/pdf/*. | wc -l) + 1)).
-	mv "/tmp/pdf/$filename" "/tmp/pdf/$filenum"
-	echo $filenum $filename "<br>" >> /tmp/pdf/list
+	filenum=$(($(ls -1 $path/*. | wc -l) + 1)).
+	mv "$path/$filename" "$path/$filenum"
+	echo $filenum $filename "<br>" >> $path/list
 fi
 ?>
 
 <?bash
 echo >> list
-cat /tmp/pdf/list
+cat $path/list
 ?>
 
 </div>

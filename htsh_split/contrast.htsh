@@ -7,7 +7,7 @@
 <?bash
 if [ "$contrast" = "d" ]; then
 	echo "Processing..."
-	cd /tmp/pdf/
+	cd $path/
 	output=$(tail -1 list | grep -o -P "(?<=[0-9]\. ).*pdf")
     output=$(echo $output | sed --expression='s/[^a-zA-Z0-9]/_/g')_contrast.pdf
 	input=$(tail -1 list | grep -o -P ^[0-9]\.)
@@ -16,7 +16,7 @@ if [ "$contrast" = "d" ]; then
 	convert -strip $(ls -1 $output*.jpg) $output
 	rm $output*.jpg
 	echo "Processing ok. <br>"
-	echo "<a href="pdf/$output" class="btn btn-success" download>Download processed pdf.</a>"
+	echo "<a href="$subpath/$output" class="btn btn-success" download>Download processed pdf.</a>"
 
 fi
 ?>

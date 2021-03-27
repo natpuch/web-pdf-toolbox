@@ -8,7 +8,7 @@ RUN chmod +x install_apache.sh
 
 RUN ./install_apache.sh
 
-RUN DEBIAN_FRONTEND=noninteractive; apt-get install -y wget ghostscript imagemagick
+RUN DEBIAN_FRONTEND=noninteractive; apt-get install -y wget ghostscript imagemagick cron
 
 RUN rm /etc/ImageMagick*/policy.xml
 
@@ -17,6 +17,14 @@ COPY install_scripts/install_BoS.sh /root/install_BoS.sh
 RUN chmod +x install_BoS.sh
 
 RUN ./install_BoS.sh
+
+COPY install_scripts/hello_cron /etc/cron.d/hello_cron
+
+RUN chmod 0644 /etc/cron.d/hello_cron
+
+RUN crontab /etc/cron.d/hello_cron
+
+RUN touch /var/log/cron.log
 
 RUN DEBIAN_FRONTEND=noninteractive; apt-get clean; apt-get autoremove
 
@@ -41,8 +49,6 @@ RUN cp html/index.htsh /var/www/html/index.htsh
 RUN rm -rf generate_htsh.sh htsh_split html install*
 
 WORKDIR "/var/www/html"
-
-RUN ln -s /tmp/pdf pdf
 
 WORKDIR "/root"
 
