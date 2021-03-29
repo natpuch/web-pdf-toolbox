@@ -39,4 +39,10 @@ services:
         - ./pdf/:/tmp/pdf/
 ```
 
+## Dependencies
+- [Bootstrap](https://getbootstrap.com/): [MIT License](https://github.com/twbs/bootstrap/blob/main/LICENSE)
+- [JQuery](https://jquery.com/): [MIT License](https://github.com/jquery/jquery/blob/main/LICENSE.txt)
+- [Ghostscript](https://www.ghostscript.com/): [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html)
+- [ImageMagick](https://imagemagick.org/index.php): [ImageMagick License](https://imagemagick.org/script/license.php)
+- [Bash on steroids](hhttps://github.com/tinoschroeter/bash_on_steroids)
 
