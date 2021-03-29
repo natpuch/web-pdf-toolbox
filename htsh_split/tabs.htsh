@@ -5,10 +5,10 @@
             <a href="#workspace" class="nav-link active" data-toggle="tab" style="color: #495057;">Workspace</a>
         </li>
         <li class="nav-item">
-            <a href="#combine" class="nav-link" data-toggle="tab" style="color: #495057;">Combine PDF</a>
+            <a href="#compress" class="nav-link" data-toggle="tab" style="color: #495057;">Compress PDF</a>
         </li>
         <li class="nav-item">
-            <a href="#compress" class="nav-link" data-toggle="tab" style="color: #495057;">Compress PDF</a>
+            <a href="#combine" class="nav-link" data-toggle="tab" style="color: #495057;">Combine PDF</a>
         </li>
         <li class="nav-item">
             <a href="#split" class="nav-link" data-toggle="tab" style="color: #495057;">Split PDF</a>

@@ -1,6 +1,6 @@
 # Web PDF Toolbox
 
-Very simple web toolbox to combine, compress, and split PDF using [Ghostscript](https://www.ghostscript.com/).
+Very simple web toolbox to combine, compress, split PDF, and convert between images and PDF, and change contrast of PDF using [Ghostscript](https://www.ghostscript.com/) and [ImageMagick](https://imagemagick.org/index.php).
 
 ![Screenshot of Web PDF Toolbox](https://raw.githubusercontent.com/natpuch/web-pdf-toolbox/main/img/screenshot.png)
 
@@ -14,8 +14,9 @@ Deploying _Web PDF Toolbox_ through Docker CLI is only recommended for testing (
 
 ```bash
 docker run \
-	-p 25568:80
-	-v './pdf/':/tmp/pdf/
+	-p 25568:80 \
+	--env TZ=Europe/Paris \
+	-v './pdf/':/tmp/pdf/ \
 	zpex/web-pdf-toolbox
 ```
 
@@ -30,10 +31,18 @@ services:
   web-pdf-toolbox:
     container_name: web-pdf-toolbox
     image: zpex/web-pdf-toolbox
+    environment:
+      - TZ=Europe/Paris
     ports:
       - 25568:80
     volumes:
         - ./pdf/:/tmp/pdf/
 ```
 
+## Dependencies
+- [Bootstrap](https://getbootstrap.com/): [MIT License](https://github.com/twbs/bootstrap/blob/main/LICENSE)
+- [JQuery](https://jquery.com/): [MIT License](https://github.com/jquery/jquery/blob/main/LICENSE.txt)
+- [Ghostscript](https://www.ghostscript.com/): [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html)
+- [ImageMagick](https://imagemagick.org/index.php): [ImageMagick License](https://imagemagick.org/script/license.php)
+- [Bash on steroids](hhttps://github.com/tinoschroeter/bash_on_steroids)
 
