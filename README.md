@@ -45,4 +45,4 @@ services:
 - [Ghostscript](https://www.ghostscript.com/): [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html)
 - [ImageMagick](https://imagemagick.org/index.php): [ImageMagick License](https://imagemagick.org/script/license.php)
 - [Bash on steroids](https://github.com/tinoschroeter/bash_on_steroids)
-
+- [Font Awesome](https://fontawesome.com/): [Creative Commons Attribution 4.0](https://fontawesome.com/license/free)
