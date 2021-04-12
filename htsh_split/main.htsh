@@ -29,7 +29,15 @@ $(document).ready(function(){
 	.bs-example{
 		margin: 20px;
 	}
+	.nav-pills .nav-link.active {
+		color: #fff;
+		background: #1c1f23;
+	}
+	.nav-pills .nav-link {
+		color: #495057;
+	}
 </style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 	{{ navbar.htsh }}
