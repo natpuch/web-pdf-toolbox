@@ -23,7 +23,11 @@
 
          <li class="nav-item">
             <a href="#contrast" class="nav-link" data-toggle="tab">Change contrast</a>
-         </li>         
+         </li>     
+
+         <li class="nav-item">
+            <a href="#watermark" class="nav-link" data-toggle="tab">Add watermark</a>
+         </li>       
     </ul>
     
 </div>
