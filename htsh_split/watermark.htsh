@@ -1,0 +1,50 @@
+<div id="watermark" class="tab-pane fade">
+	<form>
+		<label for="file" class="form-label">Watermark text:</label>
+		<input type="text" name="caption" class="form-control"><br>
+		<button id="watermark" type="submit" name="watermark" class="d btn btn-dark" value="d">Add watermark</button><br>    
+		<label>This can take some time, be patient...</label> 
+	</form>
+<?bash
+pdfcompress ()
+{
+   gs -q -dNOPAUSE -dBATCH -dSAFER -sDEVICE=pdfwrite -dCompatibilityLevel=1.3 -dPDFSETTINGS=/screen -dEmbedAllFonts=true -dSubsetFonts=true -dColorImageDownsampleType=/Bicubic -dColorImageResolution=144 -dGrayImageDownsampleType=/Bicubic -dGrayImageResolution=144 -dMonoImageDownsampleType=/Bicubic -dMonoImageResolution=144 -sOutputFile=$2 $1; 
+}
+function urldecode() { : "${*//+/ }"; echo -e "${_//%/\\\x}"; }
+removelinks()
+{
+	gs -sDEVICE=pdfwrite                \
+	   -dCompatibilityLevel=1.4         \
+	   -dPDFSETTINGS=/prepress          \
+	   -dNOPAUSE -dQUIET -dBATCH        \
+	   -dPreserveAnnots=false \
+	   -sOutputFile=$2          \
+	    $1
+}
+if [ "$watermark" = "d" ]; then
+	echo "Processing... <br>"
+	echo $caption "<br>"
+	caption=$(urldecode "$caption")
+	echo $caption "<br>"
+	opacity=30
+	fontsize=100
+	cd $path/
+	output=$(tail -1 list | grep -o -P "(?<=[0-9]\. ).*pdf")
+    output=$(echo $output | sed --expression='s/[^a-zA-Z0-9]/_/g')_watermarked_compressed.pdf
+	input=$(tail -1 list | grep -o -P ^[0-9]\.)
+	removelinks $input withoutlinks.pdf
+	convert -background white -alpha remove -alpha off -density 300 withoutlinks.pdf baking.png
+	convert -rotate 315 -background transparent -fill darkblue -size 1500x1500 -density 150x150 -pointsize $fontsize -gravity center "caption:${caption}" watermark.png
+	for page in baking-*.png; do 
+		composite -watermark $opacity -gravity center watermark.png ${page} wm-${page%.*}.png; 
+	done
+	convert wm-baking-*.png watermarked.pdf
+	pdfcompress watermarked.pdf $output
+	rm *baking* withoutlinks.pdf watermarked.pdf
+	echo $output;
+	echo "Processing ok. <br>";
+	echo "<a href="$subpath/$output" class="btn btn-success" download>Download processed pdf.</a>";
+fi
+?>
+        
+</div>

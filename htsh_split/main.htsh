@@ -66,6 +66,8 @@ $(document).ready(function(){
         {{ pdf_to_img.htsh }}
 
         {{ contrast.htsh }}
+
+        {{ watermark.htsh }}
         
     </div>
 </div>
