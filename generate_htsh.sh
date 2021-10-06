@@ -7,9 +7,9 @@ fun () {
   
     if [ -z "$lo" ]
     then
-  	  echo $line >> $out
+  	  echo "$line" >> $out
     else
-      cat $fpath$lo >> $out
+      cat "$fpath$lo" >> $out
     fi
     lo=""
   done < $1
