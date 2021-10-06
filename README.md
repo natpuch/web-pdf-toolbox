@@ -4,6 +4,8 @@ Very simple web toolbox to combine, compress, split PDF, and convert between ima
 
 ![Screenshot of Web PDF Toolbox](https://raw.githubusercontent.com/natpuch/web-pdf-toolbox/main/img/screenshot.png)
 
+⚠️ WARNING: This toolbox is not secure and should not be exposed publicly. If exposed, someone might be able to access recently uploaded documents. Please, only use this toolbox behind an authentification portal or on a LAN (and access it via VPN if needed).
+
 ## Installation
 
 The easiest way to install _Web PDF Toolbox_ is through Docker.
@@ -44,5 +46,5 @@ services:
 - [JQuery](https://jquery.com/): [MIT License](https://github.com/jquery/jquery/blob/main/LICENSE.txt)
 - [Ghostscript](https://www.ghostscript.com/): [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html)
 - [ImageMagick](https://imagemagick.org/index.php): [ImageMagick License](https://imagemagick.org/script/license.php)
-- [Bash on steroids](https://github.com/tinoschroeter/bash_on_steroids)
+- [Bash on steroids](https://github.com/tinoschroeter/bash_on_steroids): [MIT License](https://choosealicense.com/licenses/mit/)
 - [Font Awesome](https://fontawesome.com/): [Creative Commons Attribution 4.0](https://fontawesome.com/license/free)
