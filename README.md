@@ -19,7 +19,7 @@ docker run \
 	-p 25568:80 \
 	--env TZ=Europe/Paris \
 	-v './pdf/':/tmp/pdf/ \
-	zpex/web-pdf-toolbox
+	zpex/web-pdf-toolbox:latest
 ```
 
 
@@ -32,7 +32,7 @@ version: "3.4"
 services:
   web-pdf-toolbox:
     container_name: web-pdf-toolbox
-    image: zpex/web-pdf-toolbox
+    image: zpex/web-pdf-toolbox:latest
     environment:
       - TZ=Europe/Paris
     ports:
