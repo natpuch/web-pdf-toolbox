@@ -1,3 +1,4 @@
+#!/bin/bash
 export DEBIAN_FRONTEND=noninteractive 
 apt-get update; apt-get install -y apache2
 tee /etc/apache2/sites-enabled/000-default.conf >/dev/null <<EOF
