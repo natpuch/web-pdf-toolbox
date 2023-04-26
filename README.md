@@ -1,3 +1,4 @@
+⚠️ **This project is not maintained anymore.** I migrated to using [Stirling-PDF](https://github.com/Frooodle/Stirling-PDF) by [Frooodle](https://github.com/Frooodle) which is under active development and offers a cleaner interface and more advanced features.
 # Web PDF Toolbox
 
 Very simple web toolbox to combine, compress, split PDF, and convert between images and PDF, change contrast of PDF, and add text watermark on PDF using [Ghostscript](https://www.ghostscript.com/) and [ImageMagick](https://imagemagick.org/index.php).
